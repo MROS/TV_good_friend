@@ -32,7 +32,7 @@ router.get('/ch-hot', function *(next) {
 
 router.get('/statistic', function *(next) {
 	var good = [], fuck = [];
-	for (var i = 0; i < 623; i++) {
+	for (var i = 0; i < 631; i++) {
 		var time = parseInt(Math.random()*590);
 		if(Math.random() > 0.5) {
 			good.push(time);

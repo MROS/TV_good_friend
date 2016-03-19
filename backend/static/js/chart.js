@@ -1,12 +1,4 @@
-var ctx;
-var height = 500, width = 800;
-
-function initCanvas(canvas_id) {
-	var canvas = document.getElementById(canvas_id);
-	canvas.height = height;
-	canvas.width = width;
-	ctx = canvas.getContext('2d');
-
+function init() {
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
 		if(this.readyState == 4 && this.status == 200) {
@@ -19,8 +11,23 @@ function initCanvas(canvas_id) {
 }
 
 function draw(good, fuck) {
-	var unit_w = width/600;
 	var max_amount = Math.max(good.length, fuck.length);
-	var unit_h = height/max_amount;
-
+	var good_dis = [], fuck_dis = [], labels = [];
+	for (var i = 0; i < 15; i++) {
+		good_dis[i] = fuck_dis[i] = 0;
+		labels[i] = i*4 + "~" + (i+1)*4;
+	}
+	for (var i = 0; i < good.length; i++) {
+		var n = parseInt(good[i] / 40);
+		good_dis[n]++;
+	};
+	for (var i = 0; i < fuck.length; i++) {
+		var n = parseInt(fuck[i] / 40);
+		fuck_dis[n]++;
+	};
+	var data = {
+		labels: labels,
+		series: [good_dis, fuck_dis]
+	}
+	new Chartist.Line('.ct-chart', data);
 }
