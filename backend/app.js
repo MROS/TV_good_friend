@@ -1,10 +1,12 @@
 var koa = require('koa');
+var config = require('./config.js')
 var router = require('koa-router')();
 var route = require('koa-route');
 var serve = require('koa-static');
 var mongoose = require('mongoose');
 var db = require('./db.js');
 var websockify = require('koa-websocket');
+var fs = require('co-fs');
 
 var events = require('events');
 var emitter = new events.EventEmitter();
@@ -53,6 +55,10 @@ router.get('/statistic', function *(next) {
 	fuck.sort(function(a, b) {return a-b});
 	this.body = JSON.stringify({'good': good, 'fuck': fuck});
 });
+
+router.get('/chat/:number', function *(next) {
+	this.body = yield fs.readFile(config.project_root + 'static/chat.html', 'utf8');
+})
 
 app.use(router.routes()).use(router.allowedMethods());
 
@@ -109,5 +115,5 @@ app.ws.use(route.all('/channel/:number', function* (number, next) {
 	});
 }));
 
-app.listen(3000);
+app.listen(config.port);
 

@@ -1,0 +1,45 @@
+html, body {
+	height: 100%;
+}
+
+#main {
+	height: 100%;
+}
+
+#header {
+	background-color: #000000;
+	height: 60px;
+}
+
+#header img {
+	height: 40px;
+}
+
+#intro {
+	background-color: #1b1b1b;
+	height: 100%;
+}
+
+#chat {
+	background-color: #3b3b3b;
+	height: 100%;
+}
+
+#battle {
+	height: 100%;
+}
+
+#comment {
+	height: 80%;
+}
+
+#input-area {
+	height: 20%;
+}
+
+#input-area .input {
+	background-color: #666666;
+}
+
+#input-area button {
+}
