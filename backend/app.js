@@ -15,7 +15,7 @@ var emitter = new events.EventEmitter();
 var app = websockify(koa());
 // var app = koa();
 
-app.use(serve('static'));
+app.use(serve(config.project_root + 'static'));
 
 router.get('/ch-friends', function *(next) {
 	var a = [];
