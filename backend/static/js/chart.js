@@ -25,9 +25,13 @@ function draw(good, fuck) {
 		var n = parseInt(fuck[i] / 40);
 		fuck_dis[n]++;
 	};
+	for (var i = 1; i < 15; i++) {
+		fuck_dis[i] += fuck_dis[i-1];
+		good_dis[i] += good_dis[i-1];
+	}
 	var data = {
 		labels: labels,
-		series: [good_dis, fuck_dis]
+		series: [fuck_dis, good_dis]
 	}
 	new Chartist.Line('.ct-chart', data);
 }

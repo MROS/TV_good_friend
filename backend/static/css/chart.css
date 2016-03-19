@@ -1,0 +1,38 @@
+@keyframes width-pulse {
+  0% {
+    stroke-width: 6px
+  }
+  50% {
+    stroke-width: 14px;
+  }
+  100% {
+    stroke-width: 6px;
+  }
+}
+@keyframes dashoffset-seven {
+  0% {
+    stroke-dashoffset: 7px;
+  }
+  100% {
+    stroke-dashoffset: 0px;
+  }
+}
+.ct-chart .ct-series.ct-series-b .ct-line {
+  stroke: #FF6B6B;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  stroke-dasharray: 5px 6px;
+  animation: dashoffset-seven 200ms infinite linear;
+}
+.ct-chart .ct-series.ct-series-b .ct-point {
+	stroke: red;
+}
+.ct-chart .ct-series.ct-series-a .ct-line {
+  stroke: #4ECDC4;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  animation: width-pulse 2s infinite;
+}
+.ct-chart .ct-series.ct-series-a .ct-point {
+	stroke: rgb(0, 100, 255);
+}
