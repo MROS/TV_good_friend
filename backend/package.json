@@ -1,11 +1,12 @@
 {
-  "name": "hackathon",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "dependencies": {
     "koa": "^1.2.0",
     "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
     "mongoose": "^4.4.8"
   },
   "devDependencies": {},

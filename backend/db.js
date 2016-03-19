@@ -3,6 +3,7 @@ mongoose.connect('mongodb://localhost/TVGFriend');
 
 var userSchema = mongoose.Schema({
 	id: String,
+	passwd: String,
 	name: String,
 	online: Boolean,
 	channel: Number
