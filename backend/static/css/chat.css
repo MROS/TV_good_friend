@@ -23,6 +23,7 @@ html, body {
 #intro {
 	background-color: #1b1b1b;
 	height: 95%;
+	text-align: center;
 }
 
 #chat {
@@ -88,4 +89,11 @@ html, body {
 .field {
 	display: flex;
 	text-align: center;
+}
+
+h1 {
+	font-size: 32px;
+}
+h3 {
+	font-size: 24px;
 }
