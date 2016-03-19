@@ -38,16 +38,46 @@
 			<div id="comment"></div>
 			<div id="input-area">
 				<p class="control is-grouped">
-					<input class="input" type="text" placeholder="Find a repository">
+					<input id="talk" class="input" type="text" placeholder="說點什麼吧">
 					<a class="button is-info">
 						送出
 					</a>
 				</p>
+				<div class="slideUp"><span>MROS: </span>hello</div>
 			</div>
 		</div>
 		<div id="battle" class="column is-2">
 			比手速區
 		</div>
 	</div>
+	<script type="text/javascript">
+		// websocket 被動設定
+		channel = window.location.href.split("/").slice(-1)[0]
+		var socket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/channel/" + channel.toString());
+		var input_area = document.getElementById("input-area");
+		socket.onmessage = function (e) {
+			console.log(e.data);
+			d = JSON.parse(e.data);
+			switch (d.cmd) {
+				case "comment":
+					var comment = document.createElement("div");
+					comment.innerHTML = "<span> "+ d.user  + " </span>: " + d.text;
+					comment.className = "slideUp";
+					input_area.appendChild(comment);
+					break;
+				case "emotion":
+					break;
+			}
+		}
+
+		// 輸入彈幕
+		var talk = document.getElementById("talk");
+		talk.addEventListener("keypress", function(e) {
+			if (e.keyCode == 13) {
+				socket.send(JSON.stringify({cmd: "comment", user: "MROS", text: talk.value}))
+				talk.value = ""
+			}
+		});
+	</script>
 </body>
 </html>

@@ -33,6 +33,27 @@ html, body {
 	height: 80%;
 }
 
+.slideUp {
+	bottom: -100px;
+	position: absolute;
+	animation-duration: 8s;
+	animation-name: slideUp;
+	font-size: 30px;
+}
+
+@keyframes slideUp {
+	0% {
+		bottom: 0px;
+	}
+	99% {
+		bottom: 800px;
+	}
+	100% {
+		bottom: 900px;
+		display: none;
+	}
+}
+
 #input-area {
 	height: 20%;
 }
