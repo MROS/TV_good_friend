@@ -6,6 +6,9 @@ var mongoose = require('mongoose');
 var db = require('./db.js');
 var websockify = require('koa-websocket');
 
+var events = require('events');
+var emitter = new events.EventEmitter();
+
 
 var app = websockify(koa());
 // var app = koa();
@@ -53,14 +56,56 @@ router.get('/statistic', function *(next) {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.ws.use(route.all('/ws', function* (next) {
-	this.websocket.send('Hello World');
+
+websockets = [];
+var CHANNEL_NUMBER = 200
+for (var i = 1; i <= CHANNEL_NUMBER; i++) {
+	websockets[i] = [];
+}
+
+emitter.on("online", function(number) {
+	for (var j = 0; j < websockets[number].length; j++) {
+		websockets[number][j].socket.send(JSON.stringify({"cmd": "pop", "number": websockets[number].length}))
+	}
+})
+
+emitter.on("offline", function(number) {
+	for (var j = 0; j < websockets[number].length; j++) {
+		websockets[number][j].socket.send(JSON.stringify({"cmd": "pop", "number": websockets[number].length}))
+	}
+})
+
+emitter.on("command", function(number, message) {
+	for (var j = 0; j < websockets[number].length; j++) {
+		websockets[number][j].socket.send(message);
+	}
+})
+
+app.ws.use(route.all('/channel/:number', function* (number, next) {
+	var number_int = parseInt(number);
+
+	var index = Math.random();
+	websockets[number_int].push({socket: this.websocket, index: index});
+
+	console.log(websockets[number_int].length);
+
+	emitter.emit("online", number_int);
+
 	var that = this;
 	this.websocket.on('message', function(message) {
-		that.websocket.send(message);
+		emitter.emit("command", number_int, message);
 	});
-	// yielding `next` will pass the context (this) on to the next ws middleware 
-	yield next;
+	this.websocket.on('close', function(message) {
+		var target;
+		for (var i = 0; i < websockets[number_int].length; i++) {
+			if (websockets[number_int][i].index == index) {
+				target = i;
+			}
+		}
+		websockets[number_int].splice(target, 1);
+		
+		emitter.emit('offline', number_int);
+	});
 }));
 
 app.listen(3000);
