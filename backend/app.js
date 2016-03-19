@@ -94,6 +94,7 @@ app.ws.use(route.all('/channel/:number', function* (number, next) {
 	var that = this;
 	this.websocket.on('message', function(message) {
 		emitter.emit("command", number_int, message);
+		console.log(message);
 	});
 	this.websocket.on('close', function(message) {
 		var target;
