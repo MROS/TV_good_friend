@@ -47,10 +47,22 @@
 			</div>
 		</div>
 		<div id="battle" class="column is-2">
-			比手速區
+			<div id="good" class="field">
+				<img src="/img/good.png" alt="">
+			</div>
+			<div id="fuck" class="field">
+				<img src="/img/fuck.png" alt="">
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
+		// init
+		var good = 1.0, fuck = 1.0;
+		var good_dom = document.getElementById("good");
+		var fuck_dom = document.getElementById("fuck");
+		good_dom.style.height = (good / (good + fuck) * 100) + "%";
+		fuck_dom.style.height = (fuck / (good + fuck) * 100) + "%";
+
 		// websocket 被動設定
 		channel = window.location.href.split("/").slice(-1)[0]
 		var socket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/channel/" + channel.toString());
@@ -66,6 +78,13 @@
 					input_area.appendChild(comment);
 					break;
 				case "emotion":
+					if (d.type == "good") {
+						good += 1;
+					} else if (d.type == "fuck") {
+						fuck += 1;
+					}
+					good_dom.style.height = (good / (good + fuck) * 100) + "%";
+					fuck_dom.style.height = (fuck / (good + fuck) * 100) + "%";
 					break;
 			}
 		}
@@ -78,6 +97,14 @@
 				talk.value = ""
 			}
 		});
+
+		// emotion
+		good_dom.onclick = function () {
+			socket.send(JSON.stringify({cmd: "emotion", type: "good"}));
+		}
+		fuck_dom.onclick = function () {
+			socket.send(JSON.stringify({cmd: "emotion", type: "fuck"}));
+		}
 	</script>
 </body>
 </html>
