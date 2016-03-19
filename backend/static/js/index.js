@@ -11,7 +11,7 @@ $(document).ready(function($) {
 	var friend = $('#friend');
 	for (var i = 0; i < a.length; i++) {
 		var link = $('<a/>', {
-			href: 'test' + a[i]
+			href: 'chat/' + a[i]
 		});
 		$('<img>', {
 			src: 'img/test' + a[i] + '.jpg',
@@ -19,7 +19,7 @@ $(document).ready(function($) {
 		}).appendTo(link);
 		link.appendTo(pop);
 		var link = $('<a/>', {
-			href: 'test' + b[i]
+			href: 'chat/' + b[i]
 		});
 		$('<img>', {
 			src: 'img/test' + b[i] + '.jpg',
