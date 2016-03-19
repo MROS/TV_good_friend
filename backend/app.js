@@ -1,4 +1,5 @@
 var koa = require('koa');
+var config = require('./config.js')
 var router = require('koa-router')();
 var route = require('koa-route');
 var serve = require('koa-static');
@@ -108,5 +109,5 @@ app.ws.use(route.all('/channel/:number', function* (number, next) {
 	});
 }));
 
-app.listen(3000);
+app.listen(config.port);
 
