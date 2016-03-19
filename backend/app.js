@@ -1,13 +1,14 @@
 var koa = require('koa');
 var router = require('koa-router')();
+var route = require('koa-route');
 var serve = require('koa-static');
 var mongoose = require('mongoose');
 var db = require('./db.js');
-// var websockify = require('koa-websocket');
+var websockify = require('koa-websocket');
 
 
-// var app = websockify(koa());
-var app = koa();
+var app = websockify(koa());
+// var app = koa();
 
 app.use(serve('static'));
 
@@ -50,9 +51,17 @@ router.get('/statistic', function *(next) {
 	this.body = JSON.stringify({'good': good, 'fuck': fuck});
 });
 
-
-
-
 app.use(router.routes()).use(router.allowedMethods());
+
+app.ws.use(route.all('/ws', function* (next) {
+	this.websocket.send('Hello World');
+	var that = this;
+	this.websocket.on('message', function(message) {
+		that.websocket.send(message);
+	});
+	// yielding `next` will pass the context (this) on to the next ws middleware 
+	yield next;
+}));
+
 app.listen(3000);
 

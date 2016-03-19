@@ -5,14 +5,16 @@
 
 
 1. 
+	ws://104.199.156.107/channel/第幾台（數字）
 	客戶端傳送至伺服器端
-	a. 傳送評論 {"cmd": "comment", "text": String}
+	a. 傳送評論 {"cmd": "comment", "user": String, "text": String}
 	b. 傳送爛 {"cmd": "emotion", "type": "fuck"}
 	c. 傳送讚 {"cmd": "emotion", "type": "good"}
 	伺服端傳送至客戶端
-	a. 傳送他人評論 {"cmd": "comment", "text": String}
+	a. 傳送他人評論 {"cmd": "comment", "user": String, "text": String}
 	b. 傳送他人爛 {"cmd": "emotion", "type": "fuck"}
 	c. 傳送他人讚 {"cmd": "emotion", "type": "good"}
+	d. 傳送人數（只要有人上下線都會傳） {"cmd": "pop", "number": Number}
 
 2. 
 	朋友的
