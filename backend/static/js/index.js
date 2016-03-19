@@ -28,17 +28,17 @@ $(document).ready(function($) {
 		link.appendTo(friend);
 	}
 	photos = $('.photo');
-	setTimeout(displayPhoto(0), 20);
+	setTimeout(displayPhoto(0), 30);
 });
 
 function displayPhoto(i) {
 	if(i >= photos.length) {
 		if(i % 2 == 0) {
-			setTimeout('displayPhoto(1)', 20);
+			setTimeout('displayPhoto(1)', 30);
 		}
 	}
 	else {
 		photos[i].style.opacity = 1;
-		setTimeout('displayPhoto('+(i+2)+')', 20);
+		setTimeout('displayPhoto('+(i+2)+')', 30);
 	}
 }
