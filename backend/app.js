@@ -3,7 +3,10 @@ var router = require('koa-router')();
 var serve = require('koa-static');
 var mongoose = require('mongoose');
 var db = require('./db.js');
+// var websockify = require('koa-websocket');
 
+
+// var app = websockify(koa());
 var app = koa();
 
 app.use(serve('static'));
@@ -28,6 +31,7 @@ router.get('/ch-hot', function *(next) {
 			pop: parseInt(Math.random()*100)+10
 		});
 	};
+	this.body = a
 });
 
 router.get('/statistic', function *(next) {
@@ -45,6 +49,8 @@ router.get('/statistic', function *(next) {
 	fuck.sort(function(a, b) {return a-b});
 	this.body = JSON.stringify({'good': good, 'fuck': fuck});
 });
+
+
 
 
 app.use(router.routes()).use(router.allowedMethods());
