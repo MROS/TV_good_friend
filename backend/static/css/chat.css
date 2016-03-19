@@ -2,8 +2,13 @@ html, body {
 	height: 100%;
 }
 
+* {
+	margin: 0px;
+}
+
 #main {
-	height: 100%;
+	height: 96%;
+	margin: 0px;
 }
 
 #header {
@@ -17,16 +22,12 @@ html, body {
 
 #intro {
 	background-color: #1b1b1b;
-	height: 100%;
+	height: 95%;
 }
 
 #chat {
 	background-color: #3b3b3b;
-	height: 100%;
-}
-
-#battle {
-	height: 100%;
+	height: 95%;
 }
 
 #comment {
@@ -34,33 +35,57 @@ html, body {
 }
 
 .slideUp {
-	bottom: -100px;
+	/* bottom: -100px; */
 	position: absolute;
 	animation-duration: 8s;
 	animation-name: slideUp;
 	font-size: 30px;
+	opacity: 0.0;
 }
 
 @keyframes slideUp {
 	0% {
+		opacity: 1.0;
 		bottom: 0px;
 	}
 	99% {
+		opacity: 1.0;
 		bottom: 800px;
 	}
 	100% {
-		bottom: 900px;
 		display: none;
 	}
 }
 
 #input-area {
-	height: 20%;
+	height: 15%;
 }
 
 #input-area .input {
 	background-color: #666666;
 }
 
-#input-area button {
+#battle {
+	height: 95%;
+	padding: 0px;
+}
+
+#good {
+	height: 50%;
+	background-color: #e42b8a;
+}
+
+#fuck {
+	height: 50%;
+	background-color: #0d70b2;
+}
+
+.field img {
+	margin: auto;
+	bottom: 0px;
+}
+
+.field {
+	display: flex;
+	text-align: center;
 }
