@@ -1,0 +1,27 @@
+先將API分為三大類
+1. 聊天、點讚或爛（websocket）
+2. 推薦（http）
+3. 圖表分析（http）
+
+
+1. 
+	客戶端傳送至伺服器端
+	a. 傳送評論 {"cmd": "comment", "text": String}
+	b. 傳送爛 {"cmd": "emotion", "type": "fuck"}
+	c. 傳送讚 {"cmd": "emotion", "type": "good"}
+	伺服端傳送至客戶端
+	a. 傳送他人評論 {"cmd": "comment", "text": String}
+	b. 傳送他人爛 {"cmd": "emotion", "type": "fuck"}
+	c. 傳送他人讚 {"cmd": "emotion", "type": "good"}
+
+2. 
+	朋友的
+	請求： GET /ch-friends
+	回應： [{"username": String, "channel": Number}...]
+	熱門的
+	請求： GET /ch-hot
+	回應： [{"pop": Number, "channel": Number}...]
+
+3. 
+	請求： GET /graph?channel=XXXX
+	回應： 回圖
